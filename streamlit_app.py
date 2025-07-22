@@ -8,13 +8,12 @@ import streamlit as st
 from langchain.callbacks import get_openai_callback
 from src.mcqgenerator.MCQGenerator import generate_evaluate_chain
 from src.mcqgenerator.logger import logging
-import warnings 
+import sys
+import warnings
 
-try:
-    import warnings
-    warnings.filterwarnings("ignore")
-except Exception as e:
-    print("Warning module issue:", e)
+sys.modules['warnings'] = warnings
+warnings.filterwarnings("ignore")
+
 
 # Loading the json file
 with open('Response.json', 'r') as f:
@@ -29,10 +28,12 @@ with st.form("user_inputs"):
 
     # Input fields
     mcq_number = st.number_input("Number of MCQs", min_value=3, max_value=20)
+
     # Subject
     subject = st.text_input("Insert Subject", max_chars=25)
     # Quiz Tone
-    tone = st.selectbox("Complexity level of questions", max_chars=20, placeholder="Simple")
+    tone = st.selectbox("Complexity level of questions", options=["Simple", "Intermediate", "Advanced"], index=0)
+
     # Add Button
     button = st.form_submit_button("Create MCQs")
 
@@ -57,26 +58,26 @@ with st.form("user_inputs"):
                 traceback.print_exception(type(e), e, e.__traceback__)
                 st.error("Error")
 
-    else:
-        print(f"Total Tokens : {cb.total_tokens}")
-        print(f"Prompt Tokens: {cb.prompt_tokens}")
-        print(f"Completion Tokens: {cb.completion_tokens}")
-        print(f"Total Cost: ${cb.total_cost:.4f}")
-        if isinstance(response, dict):
-            # Extract quiz data from the response
-            quiz=response.get("quiz", None)
-            if quiz is not None:    
-                # Convert the quiz data to a DataFrame
-                quiz_table_data=get_table_data(quiz)
-                if quiz_table_data is not None:
-                    # Display the quiz data in a table format
-                    df=pd.DataFrame(quiz_table_data)
-                    df.index=df.index + 1
-                    st.table(df)
-                    # Display the review in a text box as well
-                    st.text_area(label="Quiz Review", value=response["review"])
-                else:
-                    st.error("Error in the table data")
             else:
-                st.write(response)
+                print(f"Total Tokens : {cb.total_tokens}")
+                print(f"Prompt Tokens: {cb.prompt_tokens}")
+                print(f"Completion Tokens: {cb.completion_tokens}")
+                print(f"Total Cost: ${cb.total_cost:.4f}")
+                if isinstance(response, dict):
+                    # Extract quiz data from the response
+                    quiz=response.get("quiz", None)
+                    if quiz is not None:    
+                        # Convert the quiz data to a DataFrame
+                        quiz_table_data=get_table_data(quiz)
+                        if quiz_table_data is not None:
+                            # Display the quiz data in a table format
+                            df=pd.DataFrame(quiz_table_data)
+                            df.index=df.index + 1
+                            st.table(df)
+                            # Display the review in a text box as well
+                            st.text_area(label="Quiz Review", value=response["review"])
+                        else:
+                            st.error("Error in the table data")
+                    else:
+                        st.write(response)
 
