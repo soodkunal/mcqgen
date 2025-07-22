@@ -19,7 +19,7 @@ Generate multiple-choice quizzes from text or PDF files using the latest LLMs.
 
 ## 🚀 Quick Start
 
-### 1. **Deploy on AWS EC2 (Ubuntu)**
+### **Deploy on AWS EC2 (Ubuntu)**
 
 #### Launch EC2
 
@@ -83,13 +83,7 @@ python3 -m streamlit run streamlit_app.py
 ---
 
 ## 🖼️ Example Screenshot  
-*(Optional: Add a screenshot of your app here!)*
-
----
-
-## 🤝 Contributing
-
-Pull requests are welcome! For major changes, please open an issue first to discuss what you’d like to change.
+![App Screenshot](assets/mcqgen.png)
 
 ---
 
@@ -106,5 +100,3 @@ This project is licensed under the MIT License.
 - Link to documentation or demo if possible.
 
 ---
-
-Would you like me to create a pull request to update your README.md with this improved formatting? If so, let me know if you want any further customization!
