@@ -1,8 +1,10 @@
 openai
 langchain
 streamlit
-langchain-openai
-langchain-community
 python-dotenv
-pandas
 PyPDF2
+
+# Check all local folder and automatically install local package in virtual env.
+-e .
+
+# pip install transformers==4.41.0 huggingface_hub==0.23.0 torch langchain is using Hugging face
