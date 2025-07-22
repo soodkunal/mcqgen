@@ -31,21 +31,21 @@ sudo apt install git curl unzip tar make sudo vim wget -y
 
 ---
 
-### 📦 Step 3: Clone the Repository
+**### 📦 Step 3: Clone the Repository**
 
 git clone https://github.com/soodkunal/mcqgen.git
 cd mcqgen
 
 ---
 
-### 🐍  Step 4: Install Python & Requirements
+**### 🐍  Step 4: Install Python & Requirements**
 
 sudo apt install python3-pip -y
 pip3 install -r requirements.txt
 
 ---
 
-### 🔑 Step 5: Add OpenAI API Key (Optional)
+**### 🔑 Step 5: Add OpenAI API Key (Optional)**
 
 If your app uses OpenAI or another API key, create a .env file:
 
@@ -60,13 +60,13 @@ Then press Esc, type :wq, and hit Enter to save.
 
 ---
 
-### ▶️ Step 6: Run the App
+**### ▶️ Step 6: Run the App**
 
 python3 -m streamlit run streamlit_app.py
 
 ---
 
-### 🌐 Step 7: Access in Browser
+**### 🌐 Step 7: Access in Browser**
 
 1. Go to your EC2 Dashboard → Security Groups
 
