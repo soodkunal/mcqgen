@@ -8,9 +8,16 @@ import streamlit as st
 from langchain.callbacks import get_openai_callback
 from src.mcqgenerator.MCQGenerator import generate_evaluate_chain
 from src.mcqgenerator.logger import logging
+import warnings 
+
+try:
+    import warnings
+    warnings.filterwarnings("ignore")
+except Exception as e:
+    print("Warning module issue:", e)
 
 # Loading the json file
-with open('./config/workspace/Response.json', 'r') as f:
+with open('Response.json', 'r') as f:
     RESPONSE_JSON = json.load(f)
 
 # Create title for the application
@@ -47,7 +54,7 @@ with st.form("user_inputs"):
                     )
                 # st.write(response["quiz"])
             except Exception as e:
-                tracebqack.print_exception(type(e), e, e.__traceback__)
+                traceback.print_exception(type(e), e, e.__traceback__)
                 st.error("Error")
 
     else:
@@ -58,7 +65,7 @@ with st.form("user_inputs"):
         if isinstance(response, dict):
             # Extract quiz data from the response
             quiz=response.get("quiz", None)
-            if quiz is not None:
+            if quiz is not None:    
                 # Convert the quiz data to a DataFrame
                 quiz_table_data=get_table_data(quiz)
                 if quiz_table_data is not None:
